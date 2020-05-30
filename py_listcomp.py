@@ -207,3 +207,99 @@ dehli._asdict()
 ###### City*dehli_data() faria o mesmo que City._make(dehli_data)
 #._asdict() retorna um collections.OrderedDict criado a partir da instância
 # da tupla nomeada. Pode ser usado para exibir os dados da cidade de uma forma bem legível
+
+# TUPLE COMO LISTA IMUTÁVEL: aceita todos os métodos de list que não envolvam
+# acrescentar ou remover itens - uma vez que tuplas são imutáveis. 
+# Outra exceção: tuplas não possuem o método __reversed__
+
+
+# Slicing
+
+s = 'bicycle'
+s[::3]
+s[::-1] # inverte a palavra
+s[::-2]
+
+l = list(range(10))
+l[2:5]
+l[2:5] = [20,30]
+l
+del l[5:7]
+l
+l[3::2] = [11,22]
+l[2:5] = 100
+l[2:5] = [100]
+l
+# Quando o alvo da distribuição é uma fatia, o lado direito deve ser um objeto iterável
+# mesmo que tenha apenas um item
+
+l = [1,2,3]
+l*5
+5*'abcd'
+# Tanto + quanto * sempre criam um novo objeto e jamais alteram seus operandos.
+
+board = [['_']*3 for i in range(3)]
+board
+board[1][2] = 'X'
+board
+
+# __iadd__ é o método especial (dunder method) que faz funcionar a adição combinada (+=)
+# "in place addition"
+# Quando __iadd__ não estiver implementado, o Python usará __add__ como alternativa
+
+l = [1,2,3]
+id(l)
+l*=2
+l
+id(l)
+t=(1,2,3)
+type(t)
+id(t)
+t*=2
+id(t)
+t
+# ID da lista inicial
+# Após a multiplicação, a lista será o mesmo objeto, com novos itens acrescentados
+# Para o caso da Tupla, o ID se altera por se tratar de uma SEQUENCIA IMUTAVEL
+# Após a múltiplicação, uma nova tupla foi criada.
+
+# A concatenação repetida de sequências imutáveis é ineficiente, pois, em vez de simplesmente
+# concatenar novos itens, o interpretador prcisar copiar toda a sequência-alvo para criar
+# uma nova sequência com os novos itens concatenados.]
+# Uma exceção é o STR. Pelo fato de a criação de strings com += em laçoes ser bem comum,
+# o CPython está otimizado para esse caso de uso. As instâncias de str são alocadas em memória
+# com espaço extra de mood que a concatenação não exigirá uma cópia de string completa 
+# todas as vezes.
+
+t = (1,2,[30,40])
+t[2] += [50,60]
+t
+# Resultado inesperado: o item t2 é alterado e uma exceção é gerada.
+
+#LIST.SORT e função embutida sorted
+
+#o método list.sort ordena uma lista in-place - isto é, sem criar uma cópia. 
+# ele devolve None para nos lembrar de que o objeto-alvo é alterado e que não foi criada
+# uma nova lista. Essa é uma convenção importante da API de Python: as funções ou os métodos que
+# alteram um objeto in place devolvem NONE para deixar claro a quem chamou que o objeto em si
+# foi alterado e nenhum objeto novo foi criado. 
+# O mesmo comportamento pode ser visto, por eemplo, na função random.shuffle.
+
+# A convenção de devolver None para indicar alterações in place tem uma desvantagem:
+# não é possível chamar esses métodos em cascata;
+
+# Por outr lado, a função embutida sorted cria uma nova lista e a retorna. Na verdade,
+# ela aceita qualquer objeto iterável como argumento, ioncluindo sequencias imutáveis e geradores.
+
+# o parâmetro KEY tanto para o método .sort quando para sorted é uma função de um só argumento
+# aplicada a cada item para gerar a sua chave de ordenação.
+
+fruits = ['grape', 'raspberry', 'apple', 'banana']
+sorted(fruits)
+sorted(fruits, reverse=True)
+sorted(fruits, key = len)
+sorted(fruits, key = len, reverse = True)
+fruits.sort() #ordenamento in place
+print(fruits.sort()) #Retorna None
+fruits # lista ordenada in place
+
