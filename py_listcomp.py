@@ -420,5 +420,14 @@ dq
 dq.extendleft([10,20,30,40])
 dq
      
-
+# Se estivermos lidando com lista de números, arrays é mais prático. 
+# Usamos muito mais lista porque é bem mais prático.
+    
+# O tipo list é flexível e fácil de usar, porém, dependendo dos requisitos específicos,
+# há oções melhores. Por exemplo, se houver necessidade de armazenar 
+# dez milhões de valores de ponto flutuante, um ARRAY será muito mais eficiente,
+# pois um ARRAY não armazena objetos FLOAT COMPLETOS, mas apenas os BYTES COMPACTOS que presentam
+# seus valores na máquina. Assim como um array na linguagem C. 
+# o array possui métodos adicionais para carregar e salvar rapidamente
+# por exemplo: .frombytes e .tofile
 
