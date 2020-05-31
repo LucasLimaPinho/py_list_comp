@@ -370,13 +370,13 @@ floats2==floats #True
 
 #Alterando valor de um item do array ao mudar um de seus bytes
 
-numbers = array.array('h',[-2,-1,0,1,2])
+numbers = array('h', [-2,-1,0,1,2])
 memv = memoryview(numbers)
 len(memv)
-memv[0]
-memv_oct = memv.cast('B') # # Cria memv_oct ao fazer o casting dos elementos de memv para o typecode 'B' -> unsigned char
+memv_oct = memv.cast('B') # Cria memv_oct ao fazer o casting dos elementos de memv para o typecode 'B' -> unsigned char
 memv_oct.tolist()
-memv_oct[5] = 4
+memv_oct[5] = 4 # Atribui o valor 4 ao byte de offset 5
+# Oserve a mudança em numbers: um 4 no nobre mais significativo de um inteiro de dois bytes sem sinal é 1024
 numbers
 
 # Operação básicas com linhas e colunas em um numpy.ndarray
