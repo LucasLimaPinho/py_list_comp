@@ -374,7 +374,7 @@ numbers = array.array('h',[-2,-1,0,1,2])
 memv = memoryview(numbers)
 len(memv)
 memv[0]
-memv_oct = memv.cast('B')
+memv_oct = memv.cast('B') # # Cria memv_oct ao fazer o casting dos elementos de memv para o typecode 'B' -> unsigned char
 memv_oct.tolist()
 memv_oct[5] = 4
 numbers
@@ -441,3 +441,15 @@ dq
 # seus valores na máquina. Assim como um array na linguagem C. 
 # o array possui métodos adicionais para carregar e salvar rapidamente
 # por exemplo: frombytes e .tofile
+
+# A classe MEMORYVIEW embutida é um tipo de sequ~encia de memória compartilhada que permite lidar
+# com fatias de arrays sem copiar os bytes. Foi insirada na biblioteca NumPy
+# Uma MEMORYVIEW é essencial uma estrutura de array NumPy genérica no próprio Python
+# (sem a matemática). Ela permite compartilhar memória entre estruturas de dados
+# (informações como imagens PIL, banco de dados SQLite, arrays de Numpy, etc). sem fazer uma cópia inicial.
+# Isso é muito importante para BIG DATA!
+# O método da classe memoryvier chamado memoryview.cast permite alterar o modo como vários bytes são lidos ou escritos
+# como unidades sem mover os dados por aí (como o operador cast em C). memoryview.cast devolve outro objeto
+# memoryview, sempre compartilhando a mesma memória.
+
+
