@@ -303,3 +303,122 @@ fruits.sort() #ordenamento in place
 print(fruits.sort()) #Retorna None
 fruits # lista ordenada in place
 
+# Administrando sequências ordenadas com bisect
+
+# o módulo bisecr oferece duas funções principais - bisect e insort.
+# Usam algoritmo de busca binária para encontrar rapidamente e inserir itens
+# em qualquer sequência ordenada
+# bisect (haystack, needle) -> haystack deverá ser uma sequência ordenada.
+# Todos os itens que aparecerem até essa posição são menores ou iguais a needle - mantendo
+# haystack em ordem crescente com a sua inserção
+
+import bisect
+import sys
+HAYSTACK =  [1,4,5,6,8,12,15,20,21,23,26,29,30]
+NEEDLE = [0,1,2,5,8,10,22,23,29,30,31]
+ROW_FMT = '{0:2d} @ {1:2d} {2}{0:<2d}'
+def demo(bisect_fn):
+    for needle in reversed(NEEDLE):
+        position = bisect_fn(HAYSTACK, needle)
+        offset = position * ' |'
+        print(ROW_FMT.format(needle,position,offset))
+if __name__ == '__main__':
+    if sys.argv[-1]=='left':
+        bisect_fn = bisect.bisect_left
+    else:
+        bisect_fn = bisect.bisect
+
+print('DEMO:', bisect_fn.__name__)
+print('haystack ->', ' '.join('%2d' % n for n in HAYSTACK))
+demo(bisect_fn)
+
+def grade(score,breakpoints=[60,70,80,90],grades='FDCBDA'):
+    i = bisect.bisect(breakpoints, score)
+    return grandes[i]
+
+# Inserção com bisect.insort
+
+import bisect 
+import random
+
+SIZE =7
+random.seed(1729)
+
+my_list = []
+for i in rang(SIZE):
+    new_item = random.randrange(SIZE*2)
+    bisect.insort(my_list,new_item)
+    print('%2d ->' new_item, my_list)
+    
+# Criando, salvando e carregando um array grande de números de ponto flutuante
+
+from array import array
+from random import random
+floats = array('d', (random() for i in range(10**7)))
+floats[-1]
+fp=open('floats.bin','wb')
+floats.tofile(fp)
+fp.close()
+floats2 = array('d')
+fp = open('floats.bin', 'rb')
+floats2.fromfile(fp, 10**7)
+fp.close()
+floats2[-1]
+floats2==floats #True
+
+# MemoryViews
+
+#Alterando valor de um item do array ao mudar um de seus bytes
+
+numbers = array.array('h',[-2,-1,0,1,2])
+memv = memoryview(numbers)
+len(memv)
+memv[0]
+memv_oct = memv.cast('B')
+memv_oct.tolist()
+memv_oct[5] = 4
+numbers
+
+# Operação básicas com linhas e colunas em um numpy.ndarray
+
+import numpy
+a = numpy.arange(12)
+type(a)
+a.shape
+a.shape = 3,4
+a[2]
+a[2,1]
+a[:,1]
+a.transpose()
+floats = numpy.loadtxt('floats-19M-lines.txt')
+floats[-3:]
+floats *=.5
+floats[-3:]
+from time import perf_counter as pc
+t0 = pc();
+floats /=3;
+pc() - t0
+numpy.save('floats-10M.npy', 'r+')
+floats2 = numpy.load('floats-10M.npy','r+')
+floats2 *=6
+floats2[-3:]
+
+# Trabalhando com um deque
+
+from collection import deque
+
+dq = deque(range(10), maxlen=10)
+dq
+dq.rotate(3)
+dq
+dq.rotate(-4)
+dq
+dq.appendleft(-1)
+dq
+dq.extend([11,22,33])
+dq
+dq.extendleft([10,20,30,40])
+dq
+     
+
+
